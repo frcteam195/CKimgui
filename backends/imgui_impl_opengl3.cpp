@@ -86,6 +86,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include <iostream>
+
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
@@ -212,6 +214,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     GLint minor = 0;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
     glGetIntegerv(GL_MINOR_VERSION, &minor);
+    std::cout << "Ver: " << major << " " << minor << std::endl;
     if (major == 0 && minor == 0)
     {
         // Query GL_VERSION in desktop GL 2.x, the string will start with "<major>.<minor>"
@@ -224,8 +227,14 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 #endif
 
 #ifdef IMGUI_IMPL_OPENGL_MAY_HAVE_VTX_OFFSET
-    if (bd->GlVersion >= 320)
+    if (bd->GlVersion >= 300)
+    {
+        std::cout << "Got the VTX Offset" << std::endl;
         io.BackendFlags |= ImGuiBackendFlags_RendererHasVtxOffset;  // We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
+    }
+    else{
+        std::cout << "Don't got it " << bd->GlVersion << std::endl;
+    }
 #endif
 
     // Store GLSL version string so we can refer to it later in case we recreate shaders.
