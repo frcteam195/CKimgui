@@ -19,6 +19,7 @@ LIB = libimgui.a
 SOURCES += $(wildcard $(IMGUI_DIR)/*.cpp)
 SOURCES += $(wildcard $(IMGUI_DIR)/backends/*.cpp)
 SOURCES += $(wildcard $(IMGUI_DIR)/misc/cpp/*.cpp)
+#Remove the targets we don't care about one by one so they can be added back easily, if needed
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_dx*.cpp), $(SOURCES))
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_wgpu.cpp), $(SOURCES))
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_android.cpp), $(SOURCES))
