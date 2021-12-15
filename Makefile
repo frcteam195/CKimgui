@@ -16,9 +16,16 @@
 
 IMGUI_DIR = .
 LIB = libimgui.a
-SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
-SOURCES += $(IMGUI_DIR)/backends/imgui_impl_sdl.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
-SOURCES += $(IMGUI_DIR)/misc/cpp/imgui_stdlib.cpp 
+SOURCES += $(wildcard $(IMGUI_DIR)/*.cpp)
+SOURCES += $(wildcard $(IMGUI_DIR)/backends/*.cpp)
+SOURCES += $(wildcard $(IMGUI_DIR)/misc/cpp/*.cpp)
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_dx*.cpp), $(SOURCES))
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_wgpu.cpp), $(SOURCES))
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_android.cpp), $(SOURCES))
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_win32.cpp), $(SOURCES))
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_allegro5.cpp), $(SOURCES))
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_marmalade.cpp), $(SOURCES))
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_metal.cpp), $(SOURCES))
 OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 
