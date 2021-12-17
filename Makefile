@@ -31,6 +31,7 @@ SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_win32.cpp), $(SOURCES
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_allegro5.cpp), $(SOURCES))
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_marmalade.cpp), $(SOURCES))
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_metal.cpp), $(SOURCES))
+SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_vulkan.cpp), $(SOURCES))
 
 
 
@@ -45,6 +46,7 @@ HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_win32.h), $(HEADERS))
 HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_allegro5.h), $(HEADERS))
 HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_marmalade.h), $(HEADERS))
 HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_metal.h), $(HEADERS))
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_vulkan.h), $(HEADERS))
 
 
 
