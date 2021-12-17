@@ -124,3 +124,4 @@ clean:
 install: $(LIB)
 	@for item in $(HEADERS) ; do install $${item} -Dv $(header_target)$${item#$(source)} ; done
 	install libimgui.a -Dv $(lib_target)libimgui.a
+	install imgui-config.cmake -Dv $(lib_target)cmake/imgui/imgui-config.cmake
