@@ -14,6 +14,10 @@
 #CXX = g++
 #CXX = clang++
 
+source = ./
+header_target = /usr/local/include/imgui/
+lib_target = /usr/local/lib/
+
 IMGUI_DIR = .
 LIB = libimgui.a
 SOURCES += $(wildcard $(IMGUI_DIR)/*.cpp)
@@ -27,6 +31,23 @@ SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_win32.cpp), $(SOURCES
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_allegro5.cpp), $(SOURCES))
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_marmalade.cpp), $(SOURCES))
 SOURCES := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_metal.cpp), $(SOURCES))
+
+
+
+HEADERS += $(wildcard $(IMGUI_DIR)/*.h)
+HEADERS += $(wildcard $(IMGUI_DIR)/backends/*.h)
+HEADERS += $(wildcard $(IMGUI_DIR)/misc/cpp/*.h)
+#Remove the targets we don't care about one by one so they can be added back easily, if needed
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_dx*.h), $(HEADERS))
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_wgpu.h), $(HEADERS))
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_android.h), $(HEADERS))
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_win32.h), $(HEADERS))
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_allegro5.h), $(HEADERS))
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_marmalade.h), $(HEADERS))
+HEADERS := $(filter-out $(wildcard $(IMGUI_DIR)/backends/*_metal.h), $(HEADERS))
+
+
+
 OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 
@@ -100,4 +121,6 @@ $(LIB): $(OBJS)
 clean:
 	rm -f $(LIB) $(OBJS)
 
-native: all
+install: $(LIB)
+	@for item in $(HEADERS) ; do install $${item} -Dv $(header_target)$${item#$(source)} ; done
+	install libimgui.a -Dv $(lib_target)libimgui.a
