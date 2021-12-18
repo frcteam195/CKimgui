@@ -124,6 +124,8 @@ clean:
 	rm -f $(LIB) $(OBJS)
 
 install: $(LIB)
-	@for item in $(HEADERS) ; do install $${item} -Dv $(header_target)$${item#$(source)} ; done
+	@for item in $$(find $(source) -maxdepth 1 -type f -name "*.h" -printf "%f\n"); do install $${item} -Dv $(header_target)$${item#$(source)} ; done
+	@for item in $$(find $(source)backends -maxdepth 1 -type f -name "*.h" -printf "%f\n"); do install $${item} -Dv $(header_target)$${item#$(source)} ; done
+	@for item in $$(find $(source)misc/cpp -maxdepth 1 -type f -name "*.h" -printf "%f\n"); do install $${item} -Dv $(header_target)$${item#$(source)} ; done
 	install libimgui.a -Dv $(lib_target)libimgui.a
 	install imgui-config.cmake -Dv $(lib_target)cmake/imgui/imgui-config.cmake
